@@ -24,17 +24,22 @@ contract DegenToken is ERC20, Ownable, ERC20Burnable {
     }
 
     function store(uint256 iteam) public  {
-        if (balanceOf(msg.sender) <= 10) {
-            revert("Insufficient Balance");
-        }
+        if( iteam > 0 && iteam < 4){
         if(iteam == 1){
+            if (balanceOf(msg.sender) >= 10) {
             _burn(msg.sender,  1);
+            }
         }
         else if(iteam == 2){
+            if (balanceOf(msg.sender) >= 20) {
             _burn(msg.sender,  5);
+            }
         }
         else if(iteam == 3){
+            if (balanceOf(msg.sender) >= 50) {
             _burn(msg.sender,  10);
+            }
+        }
         }
         else{
             revert("Invalid input");
