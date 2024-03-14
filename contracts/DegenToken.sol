@@ -17,7 +17,7 @@ contract DegenToken is ERC20, Ownable, ERC20Burnable {
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
     }
-
+    
     function burn(uint256 burn_amt) public override {
         require(balanceOf(msg.sender) >= burn_amt, "Insufficient Balance");
         _burn(msg.sender, burn_amt);
@@ -47,9 +47,14 @@ contract DegenToken is ERC20, Ownable, ERC20Burnable {
         
     }
 
-    function EmptyAccount(uint256 YesOrNo) public  {
-        if(YesOrNo == 1)
+    function EmptyAccount(uint256 YesOrNo) public {
+        require(YesOrNo == 1, "Invalid input");
         _burn(msg.sender, balanceOf(msg.sender));
-        
     }
+
+    function transferTokens(address to, uint256 amount) public {
+    require(amount <= balanceOf(msg.sender), "Insufficient balance");
+    _transfer(msg.sender, to, amount);
+}
+
 }
